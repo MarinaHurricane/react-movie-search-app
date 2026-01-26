@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import MovieGrid from '../MovieGrid/MovieGrid'
 import SearchBar from '../SearchBar/SearchBar'
 import Loader from '../Loader/Loader'
@@ -10,6 +10,7 @@ import fetchMovies from '../../services/movieService'
 import ReactPaginate from 'react-paginate'
 import css from './App.module.css'
 import { useQuery, keepPreviousData } from "@tanstack/react-query";
+import toast from 'react-hot-toast'
 
 
 
@@ -20,12 +21,18 @@ function App() {
   const [page, setPage] = useState(1);
 
 
-    const { data, isLoading, isError } = useQuery({
+    const { data, isLoading, isError, isSuccess } = useQuery({
     queryKey: ["movies", query, page],
     queryFn: () =>  fetchMovies(query, page),
     enabled: query.trim().length > 0,
     placeholderData: keepPreviousData,
   });
+
+  useEffect(() => {
+    if(isSuccess && data?.results.length === 0) {
+      toast('No movies found for your request.')
+    }
+  }, [isSuccess, data]);
 
   const movies = data?.results || [];
   const totalPages = data?.total_pages || 0;
