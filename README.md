@@ -54,6 +54,18 @@ CineScope was built to practise creating **API-driven interfaces and interactive
 The application fetches movie data from the TMDB API and displays results with pagination. Users can click a movie to open a modal with a trailer and description. Trending search queries are stored using Appwrite to demonstrate integration with external backend services.
 
 ---
+## Screenshots
+
+### Search Results
+![Search](public/cinescope-demo.png)
+
+### Trailer Modal
+![Trailer](public/modal.png)
+
+### Pagination
+![Pagination](public/pagination.png)
+
+---
 
 ## Running the Project Locally
 
